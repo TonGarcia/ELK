@@ -1,0 +1,37 @@
+common:
+    archive:
+        one: 'Arquivo'
+        other: 'Arquivos'
+    category:
+        one: 'Categoria'
+        other: 'Categorias'
+    tag:
+        one: 'Tag'
+        other: 'Tags'
+    post:
+        one: 'Artigo'
+        other: 'Artigos'
+    prev: 'Anterior'
+    next: 'Próximo'
+widget:
+    follow: 'SEGUIR'
+    recents: 'Recentes'
+    links: 'Links'
+    tag_cloud: 'Nuvem de tags'
+    catalogue: 'Catálogo'
+article:
+    more: 'Ler Mais'
+    comments: 'Comentários'
+    read: 'de leitura'
+    about: 'Cerca de'
+    words: 'Palavras'
+search:
+    search: 'Busca'
+    hint: 'Digite alguma coisa...'
+insight:
+    hint: 'Digite alguma coisa...'
+    posts: 'Artigos'
+    pages: 'Páginas'
+    categories: 'Categorias'
+    tags: 'Tags'
+    untitled: '(Sem título)'
