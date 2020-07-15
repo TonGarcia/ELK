@@ -27,8 +27,17 @@ Videos intro:
 1. https://www.youtube.com/watch?v=j8X8EG-jaaA
 1. https://www.youtube.com/watch?v=LapNa2l-7VA
 
+# Relevância e Funcionamento
+Apesar do Kibana ser a parte mais externa da Stack ELK, sendo o front-end (a qual o usuário final interage), o Google Trends mostra que os elementos separados do ELK são bastante procurados para os objetivos que possuem:
+* __Beats__: 
+* __Logstash__:
+* __Elasticsearch__:
+* __Kibana__:
+
+![Tendências de ferramentas (Google Trends)](/wiki/images/google-trends-elk.png)
+
 # Arquitetura - DEV
 ![Estrutura ELK - DESENVOLVIMENTO](/wiki/images/elk-arch-development.png)
 
 # Arquitetura - PROD
-![Estrutura ELK - PRODUÇÃO](/wiki/images/elk-arch-production.png)
+![Estrutura ELK - PRODUÇÃO](/wiki/images/elk-arch-production.png) 
