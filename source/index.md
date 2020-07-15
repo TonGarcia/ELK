@@ -2,7 +2,7 @@
 title: ElasticSearch + Logstash + Kibana & AllStack
 date: 2019-03-11 12:09:42
 ---
-Esta Wiki tem como objetivo ser um MiniGuia de [instalação](/wiki/instalacao), [manutenção](/wiki/manutencao), [escala](/wiki/escala) e [desenvolvimento de Dashboards](/wiki/desenvolvimento) utilizando a Stack ELK.
+Esta Wiki tem como objetivo ser um MiniGuia de [instalação](/elk/instalacao), [manutenção](/elk/manutencao), [escala](/elk/escala) e [desenvolvimento de Dashboards](/elk/desenvolvimento) utilizando a Stack ELK.
 
 Links iniciais úteis: 
 1. [INTRO ELK](https://www.elastic.co/pt/elasticon/tour/2020/sao-paulo/opening-keynote?ultron=all-elastic&hulk=cpc&blade=linkedin)
@@ -34,10 +34,10 @@ Apesar do Kibana ser a parte mais externa da Stack ELK, sendo o front-end (a qua
 * __Elasticsearch__:
 * __Kibana__:
 
-![Tendências de ferramentas (Google Trends)](/wiki/images/google-trends-elk.png)
+![Tendências de ferramentas (Google Trends)](/elk/images/google-trends-elk.png)
 
 # Arquitetura - DEV
-![Estrutura ELK - DESENVOLVIMENTO](/wiki/images/elk-arch-development.png)
+![Estrutura ELK - DESENVOLVIMENTO](/elk/images/elk-arch-development.png)
 
 # Arquitetura - PROD
-![Estrutura ELK - PRODUÇÃO](/wiki/images/elk-arch-production.png) 
+![Estrutura ELK - PRODUÇÃO](/elk/images/elk-arch-production.png) 
