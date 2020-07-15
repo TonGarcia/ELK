@@ -32,7 +32,7 @@ navbar:
         Sobre: /
         Instalação: /install
         Manutenção: /manutencao
-        Escala: /escala
+        Escalabilidade: /escala
         Desenvolvimento de Dashboards: /desenvolvimento
     # Navigation bar links to be shown on the right
     links:
