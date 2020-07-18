@@ -189,6 +189,12 @@ Exemplo de __output__ inserido no __elasticsearch__ visível a partir do __kiban
     $ cp drivers/mysql-connector-java-5.1.47-bin.jar /db_drivers
 ```
 
+## Oracle
+
+```shell script
+    $ cp drivers/ojdbc6.jar /db_drivers && cp drivers/ojdbc7.jar /db_drivers &&  
+```
+
 # Executando o Logstash
 
 ## MacOS
