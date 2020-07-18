@@ -66,6 +66,35 @@ Este arquivo configura para que o logstash pegue dados do beats (logger do ELK) 
 
 # Input Plugins, Filter Plugins & Output Plugins
 
+## (INPUT) JDBC plugin
+O JDBC é um plugin do logstash para que este se conect a bases de dados utilizando adaptadores JDBC (.jar), assim sendo é necessário ter os drivers que estão diponíveis para download neste projeto e colocá-lo no diretório a ser configurado no .conf para que o logstash o use para coletar dados do SGBD:
+
+```conf  base_development.conf
+input {
+  jdbc {
+    jdbc_user => "root"
+    jdbc_password => ""
+    jdbc_connection_string => "jdbc:mysql://localhost:3306/base_development"
+    jdbc_driver_library => "/drivers/mysql-connector-java-5.1.47-bin.jar"
+    jdbc_driver_class => "com.mysql.jdbc.Driver"
+    statement => "SELECT * from base_development.projects"
+  }
+}
+
+output {
+    elasticsearch {
+        "hosts" => "localhost:9200"
+        "index" => "projects"
+    }
+    stdout { codec => json_lines }
+}
+```
+
+Neste exemplo alguns pontos a serem ressaltados são:
+1. Este .conf não efetuou nenhum filtro, porém seria interessante fazer ao menos as marcações do campo timestamp
+1. No campo __input__ só possui um filho/adaptador chamado __jdbc__ e dentro deste os attrs preenchidos foram usuário, senha, string de conexão, localização do driver na máquina (__jdbc_driver_library__), classe do driver a ser chamada, no caso é o .class do .jar (__"com.mysql.jdbc.Driver"__) e por fim o statement que é o SQL a ser executado na base de dados de destino;
+1. No output, como é o localhost não seria necessário configurar o hosts, porém assim fica mais visível como deve ser a configuração quando rodando em multiplas máquinas e com acessos externos. O __"index"__ é o ID do projeto dentro do elasticsearch para facilitar a pesquisa no Kibana e também para organizar os datasources dentro do elasticsearch para evitar conflito de dados.
+
 ## (INPUT) Beats plugin
 O beats é mais uma peça Standalone do pacote ELK. <a href="/elk/install" target="_blank">Para instalar o Beats no MacOS siga os passos de instalação</a>.
 Para executar o beats considerando a instalação pelo brew é: 
