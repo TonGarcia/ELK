@@ -14,7 +14,7 @@
 
 Download & extract or `git clone` Icarus from GitHub to your blog's theme folder, and that's it!
 
-```shell
+```shell script
 git clone https://github.com/ppoffice/hexo-theme-icarus.git themes/icarus
 ```
 

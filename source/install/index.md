@@ -31,7 +31,7 @@ Passos para instalação no MacOS:
 ## Instale os pacotes ELK separadamente
 
 ```shell script
-   $ brew install logstash-full && brew install elasticsearch-full && brew install kibana-full
+   $ brew tap elastic/tap && brew install elastic/tap/metricbeat-full && brew install logstash-full && brew install elasticsearch-full && brew install kibana-full
 ```
 
 ## Inicialização dos Serviços

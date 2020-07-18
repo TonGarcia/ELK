@@ -11,14 +11,22 @@ widgets:
         position: left
 
 category:
- - logstash 
+ - elasticsearch
 
 tags:
 ---
 
+<a href="https://www.youtube.com/watch?v=zRExXSESukI&feature=share" target="_blank">Vídeo Explicativo sobre o ElasticSearch</a>
+
+# TODO remover tudo
+
+
+
 Responsável por coletar dados de fontes externas (Logs & Files, Web Apps, Metrics, Data Stores, SGBD, APIs e DataStream), manipular/processar estes dados (pipeline) e submetê-los aos agregadores como o Elasticsearch. Funciona como ferramenta de __ETL__ permitindo DataFlow pipeline do ELK.
 
-<a href="https://www.elastic.co/pt/webinars/getting-started-logstash?baymax=rtp&storm=ribbon-1&elektra=products-logstash&iesrc=ctr" target="_blank">Vídeo Explicativo sobre o Logstash</a>
+<a href="https://www.elastic.co/pt/webinars/getting-started-logstash?baymax=rtp&storm=ribbon-1&elektra=products-logstash&iesrc=ctr" target="_blank">Vídeo Explicativo</a>
+
+TODO: parei esse vídeo em 19 minutos
 
 <!-- more -->
 
@@ -39,15 +47,8 @@ A configuração do Logstash passa por um arquivo no qual é informado os plugin
 
 A fila default é a Memory Queue, na qual o logstash salva os eventos a serem disparados em memória. Caso ocorra algum erro fatal no logstash ou no computador os dados podem ser perdidos. Ao configurar uma Persistent Queue significa que os eventos serão salvo em disco e caso aconteça algum problema será possível retomar as execuções após se recuperar do problema. O Logstash garante que ao menos 1 entrega do processamento será feito, podendo ter mais de 1. __Para evitar inserção duplicada é importante que crie IDs para os eventos__. 
 
-# Arquivo .conf Base
-## Peças do .conf
-Os arquivos de configuração do logstash são divididos em 3 partes básicas:
-* __input__: definir qual ou quais plugins serão usados para a entrada dos dados, por exemplo o __beats__, um __driver JDBC__ (ex.: MySQL, Orcale...), __HTTP__ (API REST);
-* __fitler__: define os plugins que manipularão os dados e quais manipulações cada plugin deste efetuará;
-* __output__: definir os plugins para onde os dados, após processados serão enviados.
-
-## Arquivo .conf de exemplo
-Este arquivo configura para que o logstash pegue dados do beats (logger do ELK) e transforme os caracteres das mensagens todas em caixa baixa (lowcase) e a saída será inserida no elasticsearch sem configuração, assim ele subentenderá que o elastic está rodando na mesma máquina (localhost e porta default).
+# Arquivo Config Base
+Este arquivo configura para que o logstash pegue dados do beats e transforme as mensagens todas em caracteres lowercase e a saída será inserida no elasticsearch sem configuração, assim ele subintenderá que está rodando tudo na mesma máquina.
 
 ```conf minimal_base.conf
     input {
@@ -64,32 +65,9 @@ Este arquivo configura para que o logstash pegue dados do beats (logger do ELK) 
     }
 ```
 
-# Input Plugins, Filter Plugins & Output Plugins
+# Input Plugins & Filter Plugins
 
-## (INPUT) Beats plugin
-O beats é mais uma peça Standalone do pacote ELK. <a href="/elk/install" target="_blank">Para instalar o Beats no MacOS siga os passos de instalação</a>.
-Para executar o beats considerando a instalação pelo brew é: 
-```shell script
-    $ /usr/local/Cellar/metricbeat-full/version/bin/metricbeat -f commands_file.yml
-```
-
-Exemplo de código do arquivo commands_file.yml do beats:
-```yaml commands_file.yml
-filebeat.prospectors:
-- type: log
-  enabled: true
-  paths:
-    ./file_name.log
-
-output.logstash:
-    hosts: ["localhost:5044"]  
-```
-
-Este arquivo yml indica ao beats que ele deve prospectar dados de um arquivo do tipo log localizado em ./ e jogar esta saída para o logstash hospedado em localhost:5044.
-__Obs.:__ o beats só deve ser usado após um __.conf__ ser configurado no logstash para que este fique apto a processar
-
-## (FILTER) Grok -> Beats
-No arquivo __inputs_grok_sample.conf__ abaixo ele apenas fica apto esperando que o beats lhe envie dados como descrito no item anterior. Assim sendo, primeiro é necessário rodar o logstash com o .conf deste item para que com esta configuração disponibilizada e ativa ele seja capaz de receber o beats.
+## BeatsInput Plugin com GrokFilter Plugin
 1. grok plugin: usado para processar dados de log e trabalha com expressões regulares com variáveis que este consegue capturar no texto
     1. no arquivo abaixo o grok está fazendo:
         1. identifica o padrão __TIMESTAMP_ISO8601__ e aloca o valor deste na variável __timestamp_string__
@@ -126,31 +104,9 @@ No arquivo __inputs_grok_sample.conf__ abaixo ele apenas fica apto esperando que
     }
 ```
 
-## (OUTPUT) elasticsearch & stdout
-No arquivo do __inputs_grok_sample.conf__ os outputs definidos foram: __elasticsearch__ & __stdout__ sendo o elasticsearch aonde este dado será armazenado e o stdout é apenas um "log" com pretty print do evento que foi executado para haver um feedback visual em nível de desenvolvimento/debug.
+# Output Plugins
 
-Exemplo de __output__ do pretty debug do __stdout__ codec rubydebug:
-```json output_stdout_codec_rubydebug
-{
-  "prospector": {
-    "type": "log"
-  },
-  "tags": ["beats_input_codec_plain_applied"],
-  "@version": "1",
-  "source": "/Users/../../file_name.log",
-  "@timestamp": 12173021,
-  "line": "Lorem ipsum lat",
-  "beat": {
-    "name": "ElasticMBP.local",
-    "hostname": "ElasticMBP.local",
-    "verison": "6.2.4"
-  }
-}
-```
-
-Exemplo de __output__ inserido no __elasticsearch__ visível a partir do __kibana__, mostrando o mesmo log do print do __stdout__:
-![Kibana mostrando o log de processamento do Beats importado no Elasticsearch via Logstash](/elk/images/kibana_logstash_elasticsearch_beats_log_import.png)
-
+No arquivo do inputs_grok_sample.conf o output foi para o elasticsearch padrão com stdout codec rubydebug que é utilizado para fazer pretty print (impressão bonita e legível) do evento ocorrido para ter certeza de que o processamento foi feito com sucesso.
 
 # Setup Drivers
 
